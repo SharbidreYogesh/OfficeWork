@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTL Page</title>
+
+
+    <style>
+        button.selected {
+            background-color: rgba(34, 190, 247, 0.944) !important;
+            color: #ffffff !important;
+        }
+        
+
+        .content {
+            display: none;
+        }
+
+        .content.show {
+            display: block;
+        }
+
+        .slidecontainer {
+            width: 100%;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            margin-left: 1px;
+            width: 93%;
+            height: 25px;
+            margin-left: 10px;
+            background: linear-gradient(to right, #e9d0d0, #e20d0d);
+            outline: none;
+            opacity: 0.9;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 45px;
+            border-radius: 15px;
+            background: #ffffff;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 45px;
+            background: #e5e8f4d7;
+            cursor: pointer;
+        }
+
+        button {
+            position: relative;
+            top: -18px;
+            background-color: none;
+            color: #041033;            
+        }
+        button:hover {opacity: 0.8}
+
+        button:disabled {
+            background-color: #005b21;
+            color: #fff;
+        }
+
+        /* Add this CSS rule to change the color of the "Max" button when selected */
+        button#maxButton.selected {
+            background-color: red;
+        }
+        
+        @media only screen and (max-width: 600px) {
+        .slider {
+            width: 80%; /* Adjust width for smaller screens */
+        }
+        .content.show{
+            display: block;
+        }
+        .button{
+            width: 35%;
+            margin: 5%;
+        }
+    }
+    </style>
+</head>
+
+<body style="margin: 0; padding: 0; background-color: rgba(6, 42, 106, 0.92);">
+
+    <img id="loadingImage" src="C:\Users\Ankita\Desktop\Yogesh_Frontend\Welcome_Page.png" style="display: block; margin: auto; width: 100%; height: 100%; position: fixed; top: 0; left: 0; z-index: 9999;">
+    <br><br>
+  
+    <!-- Add icon library -->
+    <!--<link rel="stylesheet" href="C:\Users\Ankita\Pictures\Saved Pictures">
+    <div class="icon-bar">
+        <a class="active" href="#"><i class="fa fa-Light Settings"></i></a>
+        <a href="#"><i class="fa fa-digital-camera"></i></a>
+        <a href="#"><i class="fa fa-settings"></i></a>
+        <a href="#"><i class="fa fa-notification (1)"></i></a>
+        
+      </div>-->
+
+    <!-- Light Button -->
+    <a href="#" style="text-decoration: none; margin-top: -4px;">
+        <button id="buttonLight" class="selected" onclick="toggleSelected(this)" 
+            style="width: 16.5%; height: 80px; border-radius: 25px; background-color: rgba(6, 42, 106, 0.92); border-width: 1px;margin-left: 10px;">
+            <img src="C:\Users\Ankita\Pictures\Saved Pictures\5.png" alt="5" style="width: 120px; height: 70px; align-items: center;">
+            </button>
+    </a>
+
+    <!-- Camera Button -->
+    <a href="#" style="text-decoration: none; margin-top: -4px;">
+        <button id="buttonCamera" onclick="toggleSelected(this)"
+            style="width: 16.5%; height: 80px;  border-radius: 25px; background-color: rgba(6, 42, 106, 0.92); border-width: 1px;">
+            <img src="C:\Users\Ankita\Pictures\Saved Pictures\camera.png" alt="camera" style="width: 70px; height: 70px;">
+            </button>
+    </a>
+
+    <!-- Settings Button -->
+    <a href="#" style="text-decoration: none; margin-top: -4px;">
+        <button id="buttonSettings" onclick="toggleSelected(this)"
+            style="width: 16.5%; height: 80px; font-size: 18px; background-color: rgba(6, 42, 106, 0.92); border-radius: 25px; border-width: 1px;">
+            <img src="C:\Users\Ankita\Pictures\Saved Pictures\settings.png" alt="settings" style="width: 70px; height: 70px;">
+            </button>
+    </a>
+
+    <!-- Notification Button -->
+    <a href="#" style="text-decoration: none; margin-top: -4px;">
+        <button id="buttonNotification" onclick="toggleSelected(this)"
+            style="width: 16.5%; height: 80px; border-radius: 25px; background-color: rgba(6, 42, 106, 0.92); border-width: 1px;">
+            <img src="C:\Users\Ankita\Pictures\Saved Pictures\notification.png" alt="notification (1)" style="width: 70px; height: 70px;">
+            </button>
+
+    <!-- Endo Button -->
+    <a href="#" style="text-decoration: none;">
+        <button id="buttonEndo" onclick="toggleSelected(this)"
+            style="width: 50px; height: 50px; border-radius: 25px; font-size: xx-large;position: relative;right: -50px;top: -45px;">
+            <b>E</b>
+            </button>        
+    </a>
+
+    <!-- Standby Button -->
+    <a href="#" style="text-decoration: none;">
+        <button id="buttonStandby" onclick="toggleSelected(this)"
+            style="width: 50px; height: 50px; border-radius: 25px; font-size: large; position: relative; right: -120px; top: -45px; font-size: xx-large;">
+            <b>S</b>
+            </button>        
+    </a>
+
+    
+    <!-- Light Content -->
+    <div id="lightContent" class="content show">
+        <h4 style="font-size: x-large; color: #fff; margin-top  : 10px; margin-bottom: 10px; margin-left: 10px;">Intensity</h4>
+        <table align="slider" ; width="100%">
+            <tr>
+                <th style="padding-left: 10px; text-align: left; width: 200px; height: 45px; font-size: large; color: azure;">0</th>
+                <th style="padding-left: 10px; text-align: left; width: 200px; height: 45px; font-size: large; color: azure;">10</th>
+                <th style="padding-left: 10px; text-align: left; width: 200px; height: 45px; font-size: large; color: azure;">20</th>
+                <th style="padding-left: 10px; text-align: left; width: 200px; height: 45px; font-size: large; color: azure;">30</th>
+                <th style="padding-left: 10px; text-align: left; width: 200px; height: 45px; font-size: large; color: azure;">40</th>
+                <th style="padding-left: 10px; text-align: left; width: 200px; height: 45px; font-size: large; color: azure;">50</th>
+                <th style="padding-left: 10px; text-align: left; width: 200px; height: 45px; font-size: large; color: azure;">60</th>
+                <th style="padding-left: 10px; text-align: left; width: 200px; height: 45px; font-size: large; color: azure;">70</th>
+                <th style="padding-left: 10px; text-align: left; width: 200px; height: 45px; font-size: large; color: azure;">80</th>
+                <th style="padding-left: 10px; text-align: left; width: 200px; height: 45px; font-size: large; color: azure;">90</th>
+                <th style="padding-left: 10px; text-align: left; width: 200px; height: 45px; font-size: large; color: azure;">100</th>
+            </tr>
+            
+        </table>
+        <span class="slidecontainer">
+            <input type="range" min="0" max="100" value="50" class="slider" id="myRange" oninput="updateSliderValue(this)">
+            <button style="padding-top: 5px; text-indent: 2px; vertical-align: -2px; font-size: large; font-weight: bold; height: 55px; width: 55px; border-radius: 55px; border: none; position: relative; box-shadow: 0 5px rgb(223, 20, 20); transform: translateY(4px);" id="maxButton" onclick="toggleMaxValue()">Max</button>
+            <p style="color: #fff; font-size: large; margin-top: -1px;  margin-left: 10px;">Value: <span id="demo">50</span></p>
+        </span>
+
+        <h4 style="font-size: x-large; color: #fff; margin-left: 10px;">Color Temperature</h4>
+        
+        <!-- Color temperature button content here -->
+        <button style=" margin-left: 3px; width: 19.6%; height: 70px; font-size: 34px; margin-bottom: -10px; border: none; border-radius: 5px;color: #ffffff;  background-color: rgba(120, 137, 165)" id="button3500K"
+            onclick="handleClickColorTemperature(this);sendDataToApi(1,19)">3500K</button>
+        <button style="width: 19.6%; height: 70px; font-size: 34px; border: none; border-radius: 5px; color: #ffffff; background-color: rgb(120, 137, 165)" id="button4000K"
+            onclick="handleClickColorTemperature(this);sendDataToApi(2,19)">4000K</button>
+        <button style="width: 19.6%; height: 70px; font-size: 34px; border: none; border-radius: 5px; color: #ffffff; background-color: rgba(120, 137, 165)" id="button4500K"
+            onclick="handleClickColorTemperature(this);sendDataToApi(3,19)">4500K</button>
+        <button style="width: 19.6%; height: 70px; font-size: 34px; border: none; border-radius: 5px; color: #ffffff; background-color: rgba(120, 137, 165)" id="button5000K"
+            onclick="handleClickColorTemperature(this);sendDataToApi(4,19)">5000K</button>
+        <button style="width: 19.6%; height: 70px; font-size: 34px; border: none; border-radius: 5px; color: #ffffff; background-color: rgba(120, 137, 165)" id="button5500K"
+            onclick="handleClickColorTemperature(this);sendDataToApi(5,19)">5500K</button>
+
+        <br>
+
+        <h4 style="font-size: x-large; color: #fff; margin-top: 10px; margin-left: 10px;">Focus</h4>
+        <!-- Focus button content here -->
+        <button style=" margin-left: 5px; width: 32.83%; height: 70px; font-size: 34px; border-radius: 5px; color: #ffffff; background-color: rgba(99, 123, 163, 0.92)" id="buttonStandardF"
+            onclick="handleClickFocus(this);sendDataToApi(1,1200)">Standard</button>
+        <button style="width: 32.83%; height: 70px; font-size: 34px; border-radius: 5px; color: #ffffff; background-color: rgba(99, 123, 163, 0.92)" id="buttonNarrowF"
+            onclick="handleClickFocus(this);sendDataToApi(2,1200)">Narrow</button>
+        <button style="width: 32.83%; height: 70px; font-size: 34px; border-radius: 5px; color: #ffffff; background-color: rgba(99, 123, 163, 0.92)" id="buttonDeepCavityF"
+            onclick="handleClickFocus(this);sendDataToApi(3,1200)">Deep Cavity</button>
+
+
+    </div>
+
+    <!-- Camera Content -->
+    <div id="cameraContent" class="content">
+        <!-- Camera content here -->
+        <!-- <h4 style="font-size: x-large; color: #fff; margin-top  : 10px; margin-bottom: 21px; margin-left: 10px;">Camera</h4> -->
+        <table align="button" width="100%">
+            <tr>
+                <th style="padding-left: 10px; text-align: left; width: 24.75%; height: 55px; font-size: large; color: azure;">Camera</th>
+                <th style="padding-left: 10px; text-align: left; width: 24.75%; height: 55px; font-size: large; color: azure;">Freeze</th>
+                <th style="padding-left: 10px; text-align: left; width: 24.75%; height: 55px; font-size: large; color: azure;">WhiteBalance</th>
+                <th style="padding-left: 10px; text-align: left; width: 24.75%; height: 55px; font-size: large; color: azure;">Xtra</th>
+            </tr>
+            </table>
+        <button style=" margin-left: 5px; width: 24.75%; height: 80px; font-size: 34px; border-radius: 5px; background-color: rgba(99, 123, 163, 0.92)" id="buttonCamera">
+            <img src="C:\Users\Ankita\Pictures\Saved Pictures\camera.png" alt="camera" style="width: 70px; height: 70px;">
+        </button>
+        <button style=" margin-left: 5px; width: 24.75%; height: 80px; font-size: 34px; border-radius: 5px; background-color: rgba(99, 123, 163, 0.92)" id="buttonCameraFreeze">
+            <img src="C:\Users\Ankita\Pictures\Saved Pictures\no-camera.png" alt="no-camera" style="width: 70px; height: 70px;">
+        </button>
+        <button style=" margin-left: 5px; width: 24.75%; height: 80px; font-size: 34px; border-radius: 5px; background-color: rgba(99, 123, 163, 0.92)" id="buttonWhiteBalance">
+            <img src="C:\Users\Ankita\Pictures\Saved Pictures\Auto_color.png" alt="Auto_color" style="width: 70px; height: 70px;">
+        </button>
+
+        <table align="button" width="100%">
+            <tr>
+                <th style="padding-left: 10px; text-align: left; width: 24.75%; height: 55px; font-size: large; color: azure;">IRIS</th>
+                <th style="padding-left: 10px; text-align: left; width: 12.375%; height: 55px; font-size: large; color: azure;"></th>
+                <th style="padding-left: 10px; text-align: left; width: 12.375%; height: 55px; font-size: large; color: azure;"></th>
+                <th style="padding-left: 10px; text-align: left; width: 24.75%; height: 55px; font-size: large; color: azure;">Focus</th>
+                <th style="padding-left: 10px; text-align: left; width: 24.75%; height: 55px; font-size: large; color: azure;">Xtra</th>
+            </tr>
+            </table>
+        <button style=" margin-left: 5px; width: 24.3%; height: 80px; font-size: 34px; border-radius: 5px; background-color: rgba(99, 123, 163, 0.92)" id="buttonAuto">
+            <img src="C:\Users\Ankita\Pictures\Saved Pictures\Auto_color.png" alt="Auto_color" style="width: 70px; height: 70px;">
+        </button>
+        <button style=" margin-left: 5px; width: 12%; height: 80px; font-size: 34px; border-radius: 5px; background-color: rgba(99, 123, 163, 0.92)" id="buttonplus">
+            <img src="C:\Users\Ankita\Pictures\Saved Pictures\add.png" alt="add" style="width: 70px; height: 70px;">
+        </button>
+        <button style=" margin-left: 5px; width: 12%; height: 80px; font-size: 34px; border-radius: 5px; background-color: rgba(99, 123, 163, 0.92)" id="buttonminus">
+            <img src="C:\Users\Ankita\Pictures\Saved Pictures\remove.png" alt="remove" style="width: 70px; height: 70px;">
+        </button>
+        <button style=" margin-left: 5px; width: 24.1%; height: 80px; font-size: 34px; border-radius: 5px; background-color: rgba(99, 123, 163, 0.92)" id="buttonWhiteBalance">AutoFocus</button>
+        <button style=" margin-left: 5px; width: 24.3%; height: 80px; font-size: 34px; border-radius: 5px; background-color: rgba(99, 123, 163, 0.92)" id="buttonWhiteBalance">FocusLock</button>
+         
+        <table align="button" width="100%">
+            <tr>
+                <th style="padding-left: 10px; text-align: left; width: 24.75%; height: 55px; font-size: large; color: azure;">Flip</th>
+                <th style="padding-left: 10px; text-align: left; width: 24.75%; height: 55px; font-size: large; color: azure;"></th>
+                <th style="padding-left: 10px; text-align: left; width: 24.75%; height: 55px; font-size: large; color: azure;">Zoom</th>
+                <th style="padding-left: 10px; text-align: left; width: 24.75%; height: 55px; font-size: large; color: azure;"></th>
+            </tr>
+        </table>
+        
+        <button style=" margin-left: 5px; width: 24%; height: 80px; font-size: 34px; border-radius: 5px; background-color: rgba(99, 123, 163, 0.92)" id="buttonCamera">
+            <img src="C:\Users\Ankita\Pictures\Saved Pictures\outline.png" alt="outline" style="width: 70px; height: 70px;">
+        </button>
+        <button style=" margin-left: 5px; width: 24%; height: 80px; font-size: 34px; border-radius: 5px; background-color: rgba(99, 123, 163, 0.92)" id="buttonCameraFreeze">
+            <img src="C:\Users\Ankita\Pictures\Saved Pictures\outline (1).png" alt="outline (1)" style="width: 70px; height: 70px;">
+        </button>
+        <button style=" margin-left: 5px; width: 24%; height: 80px; font-size: 34px; border-radius: 5px; background-color: rgba(99, 123, 163, 0.92)" id="buttonplus">
+            <img src="C:\Users\Ankita\Pictures\Saved Pictures\add.png" alt="add" style="width: 70px; height: 70px;">
+        </button>
+        <button style=" margin-left: 5px; width: 24%; height: 80px; font-size: 34px; border-radius: 5px; background-color: rgba(99, 123, 163, 0.92)" id="buttonminus">
+            <img src="C:\Users\Ankita\Pictures\Saved Pictures\remove.png" alt="remove" style="width: 70px; height: 70px;">
+        </button>
+
+    </div>
+
+    <!-- Settings Content -->
+    <div id="settingsContent" class="content">
+        <!-- Settings content here -->
+    </div>
+
+    <!-- Notification Content -->
+    <div id="notificationContent" class="content">
+        <!-- Notification content here -->
+    </div>
+
+    <script>
+
+        // Get buttons and content divs
+const lightButton = document.getElementById('buttonLight');
+const cameraButton = document.getElementById('buttonCamera');
+const settingsButton = document.getElementById('buttonSettings');
+const notificationButton = document.getElementById('buttonNotification');
+const lightContent = document.getElementById('lightContent');
+const cameraContent = document.getElementById('cameraContent');
+const settingsContent = document.getElementById('settingsContent');
+const notificationContent = document.getElementById('notificationContent');
+
+// Add event listeners to buttons
+lightButton.addEventListener('click', () => {
+    showContent(lightContent);
+});
+
+cameraButton.addEventListener('click', () => {
+    showContent(cameraContent);
+});
+
+settingsButton.addEventListener('click', () => {
+    showContent(settingsContent);
+});
+
+notificationButton.addEventListener('click', () => {
+    showContent(notificationContent);
+});
+
+
+        // Function to toggle selected state for buttons and show corresponding content
+        function toggleSelected(button, contentId) {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(btn => {
+                if (btn !== button) {
+                    btn.classList.remove('selected');
+                }
+            });
+            button.classList.toggle('selected');
+            const content = document.getElementById(contentId);
+            if (content) {
+                content.classList.toggle('show');
+            }
+        }
+
+        // Function to show content
+        function showContent(content) {
+            // Hide all content divs
+            document.querySelectorAll('.content').forEach((div) => {
+                div.classList.remove('show');
+            });
+
+
+            // Reset all button selections
+            document.querySelectorAll('button').forEach((button) => {
+                button.classList.remove('selected');
+            });
+
+            // Add selected class to the corresponding button
+            if (content === lightContent) {
+                lightButton.classList.add('selected');
+            } else if (content === cameraContent) {
+                cameraButton.classList.add('selected');
+            } else if (content === settingsContent) {
+                settingsButton.classList.add('selected');
+            } else if (content === notificationContent) {
+                notificationButton.classList.add('selected');
+            }
+
+            // Show the selected content
+            content.classList.add('show');
+        }
+//========================Light Content==================================================
+        // Define a variable to track if the "Max" button is currently selected
+        let isMaxButtonSelected = false;
+
+        // Define a variable to store the last selected slider value
+        let lastSliderValue;
+
+        // Function to toggle between setting slider value to 100 and restoring last selected value
+        function toggleMaxValue() {
+            const slider = document.getElementById('myRange');
+            if (!isMaxButtonSelected) {
+                // Store the current slider value before changing it
+                lastSliderValue = slider.value;
+                // Set slider value to 100
+                slider.value = 100;
+                // Update slider value
+                updateSliderValue(slider);
+                // Update VP and key values for "Max" button selection
+                sendCommandToHardware(1600, 1);
+            } else {
+                // Restore the last selected slider value
+                slider.value = lastSliderValue || 50; // Set default value if lastSliderValue is undefined
+                // Update slider value
+                updateSliderValue(slider);
+                // Update VP and key values for restoring last selected value
+                sendCommandToHardware(1500, slider.value);
+            }
+            // Toggle the state of the "Max" button
+            isMaxButtonSelected = !isMaxButtonSelected;
+            // Update "Max" button class
+            document.getElementById('maxButton').classList.toggle('selected');
+        }
+// Define global variable to track slider value
+let sliderValue = 50;
+
+// Function to update slider value and log VP and key values
+function updateSliderValue(slider) {
+    sliderValue = slider.value;
+    document.getElementById('demo').innerText = sliderValue; // Update displayed value
+    // Log VP and key values
+    const vp = isMaxButtonSelected ? 1500 : 1600;
+    const key = isMaxButtonSelected ? sliderValue : 0;
+    console.log(`VP: ${vp}, Key: ${key}`);
+    // Send command to hardware
+    sendCommandToHardware(vp, key);
+    // Send data to API
+    sendDataToApi(sliderValue, isMaxButtonSelected);
+}
+
+// Function to send data to API
+function sendDataToApi(value, isMaxButtonSelected) {
+    const data = {
+        sliderValue: value,
+        isMaxButtonSelected: isMaxButtonSelected
+    };
+
+    fetch('http://127.0.0.1:3000/slider', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+}
+
+// Function to send command to hardware
+function sendCommandToHardware(vp, key) {
+    console.log(`Sending command to hardware: VP=${vp}, Key=${key}`);
+}
+
+
+        // Function to send data to API
+        function sendDataToApi(vp, key) {
+            const data = {
+            key: key.toString(),
+            VP: VP.toString()
+         };
+
+
+            fetch('http://127.0.0.1:3000/slider', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Function to send command to hardware
+        function sendCommandToHardware(vp, key) {
+            console.log(`Sending command to hardware: VP=${vp}, Key=${key}`);
+        }
+
+        // // Function to toggle button selection
+        // function toggleSelected(button) {
+        //     const isSelected = button.classList.contains('selected');
+        //     button.classList.toggle('selected');
+        //     // Log button selection toggle
+        //     console.log(`${button.id} selection toggled: ${!isSelected}`);
+        // }
+
+                
+        window.onload = function () {
+    setTimeout(function () {
+        document.getElementById('loadingImage').style.display = 'none';
+    }, 1000);
+
+    // Default Color Temperature: 4500K (VP=19, Key=3)
+    const defaultColorVP = 19;
+    const defaultColorKey = 3;
+    console.log(`Color Temperature: VP=${defaultColorVP}, Key=${defaultColorKey}`);
+    sendCommandToHardware(defaultColorVP, defaultColorKey, 'button4500K'); // Pass button ID
+    const button4500K = document.getElementById('button4500K');
+    button4500K.classList.add('selected');
+
+    // Default Focus: Deep Cavity (VP=1200, Key=3)
+    const defaultFocusVP = 1200;
+    const defaultFocusKey = 3;
+    console.log(`Focus: VP=${defaultFocusVP}, Key=${defaultFocusKey}`);
+    sendCommandToHardware(defaultFocusVP, defaultFocusKey, 'buttonDeepCavityF');
+    const buttonDeepCavityF = document.getElementById('buttonDeepCavityF');
+    buttonDeepCavityF.classList.add('selected');
+
+    // Default Slider Value: 50 (VP=1500, Key=50)
+     const defaultSliderValue = 50;
+    const defaultSliderVP = 1500;
+    const defaultSliderKey = 50;
+    console.log(`VP: ${defaultSliderVP}, Key: ${defaultSliderKey}`);
+    sendCommandToHardware(defaultSliderVP, defaultSliderKey);
+
+    // Call the function to send data
+    sendDataToApi(defaultSliderValue, false); // Send default slider value (50) and max button state (false)
+};
+
+
+
+// Function to toggle selected state for color temperature buttons
+function toggleSelectedColor(button) {
+  // Remove selected class from all color temperature buttons
+  document.querySelectorAll('[id^="button"][id$="K"]').forEach((btn) => {
+      btn.classList.remove('selected');
+  });
+
+  // Add selected class to the clicked button
+  button.classList.add('selected');
+
+  // Store the last selected Color Temperature button
+  sessionStorage.setItem('lastSelectedColorButton', button.id);
+}
+
+// Function to toggle selected state for focus buttons
+function toggleSelectedFocus(button) {
+  // Remove selected class from all focus buttons
+  document.querySelectorAll('[id^="button"][id$="F"]').forEach((btn) => {
+      btn.classList.remove('selected');
+  });
+
+  // Add selected class to the clicked button
+  button.classList.add('selected');
+
+  // Store the last selected Focus button
+  sessionStorage.setItem('lastSelectedFocusButton', button.id);
+}
+
+
+// Function to handle button click for color temperature buttons
+function handleClickColorTemperature(button) {
+let vp;
+let key;
+
+switch (button.id) {
+case 'button3500K':
+  vp = 19;
+  key = 1;
+  break;
+case 'button4000K':
+  vp = 19;
+  key = 2;
+  break;
+
+case 'button4500K':
+          vp = 19; // Assuming the variable pointer for Focus is 19
+          key = 3; // Key for 4500K
+          break;
+      case 'button5000K':
+          vp = 19; // Assuming the variable pointer for Focus is 19
+          key = 4; // Key for 5000K
+          break;
+      case 'button5500K':
+          vp = 19; // Assuming the variable pointer for Focus is 19
+          key = 5; // Key for 5500K
+          break;
+      default:
+          // Default case
+          break;
+  }
+
+sendCommandToHardware(vp, key);
+toggleSelectedColor(button);
+}
+
+// Function to handle button click for focus buttons
+function handleClickFocus(button) {
+let vp = 1200;
+let key;
+
+switch (button.id) {
+case 'buttonStandardF':
+  key = 1;
+  break;
+case 'buttonNarrowF':
+  key = 2;
+  break;
+
+
+case 'buttonDeepCavityF':
+  key = 3; // Key for Deep Cavity focus
+  break;
+  default:
+  // Default case
+  break;
+}
+
+sendCommandToHardware(vp, key);
+toggleSelectedFocus(button);
+}
+
+
+
+
+
+// Function to send command to hardware
+function sendCommandToHardware(vp, key) {
+console.log(`Sending command to hardware: VP=${vp}, Key=${key}`);
+}
+
+// Function to send data to API
+function sendDataToApi(key, VP) {
+const data = {
+key: key.toString(),
+VP: VP.toString()
+};
+
+fetch('http://127.0.0.1:3000/log', {
+method: 'POST',
+headers: {
+  'Content-Type': 'application/json'
+},
+body: JSON.stringify(data)
+})
+.then(response => {
+if (!response.ok) {
+  throw new Error('Failed to send data to API');
+}
+return response.json();
+})
+.then(data => {
+console.log('Data sent successfully:', data);
+})
+.catch(error => {
+console.error('Error sending data to API:', error);
+});
+}
+
+//========================Light Content==================================================
+
+
+
+    </script>
+</body>
+
+</html>
