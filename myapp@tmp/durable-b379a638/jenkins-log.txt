@@ -1,0 +1,2 @@
+
+C:\ProgramData\Jenkins\.jenkins\workspace\Testing_1\myapp>start /B npm start  1>myapp.log 2>&1 
